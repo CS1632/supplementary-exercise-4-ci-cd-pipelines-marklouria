@@ -18,8 +18,16 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public boolean returnCat(int id) {
-		// TODO
-		return false;
+		Cat c = getCat(id);
+		if (cats == null || cats.size() == 0) {
+			return false;
+		}
+		if(c.getRented() == true){
+			c.returnCat();
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	/**
@@ -33,8 +41,16 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public boolean rentCat(int id) {
-		// TODO
-		return false;
+		Cat c = getCat(id);
+		if (cats == null || cats.size() == 0) {
+			return false;
+		}
+		if(c.getRented() == true){
+			return false;
+		}else{
+			c.rentCat();
+			return true;
+		}
 	}
 
 	/**
@@ -48,8 +64,18 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public String listCats() {
-		// TODO
-		return "WRITE CODE FOR THIS";
+		String returnStr = "";
+		if (cats == null || cats.size() == 0) {
+			return returnStr;
+		}else{
+			for(int i = 1; i < 4; i++){
+				if(catAvailable(i)){
+					Cat c = getCat(i);
+					returnStr = returnStr + "ID " + i + ". " + c.getName() + "\n";
+				}
+			}
+		}
+		return returnStr;
 	}
 
 	/**
@@ -62,8 +88,18 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public boolean catExists(int id) {
-		// TODO
-		return false;
+		if (cats == null || cats.size() == 0) {
+			return false;
+		}
+
+		Cat c = getCat(id);
+
+		if (c == null) {
+			// No cat of this ID exists, thus it is not available
+			return false;
+		} 
+
+		return true;
 	}
 
 	/**
